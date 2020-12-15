@@ -1,0 +1,16 @@
+@import 'src/variables';
+
+.button__component {
+  width: 200px;
+  height: 40px;
+  font-family: $font-1;
+  text-transform: uppercase;
+  font-weight: 1000;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+  background: $color-1;
+  color: white;
+  border-radius: 2px;
+}
