@@ -3,6 +3,12 @@ export const classnames = (...args) => {
   args.forEach((val) => {
     if (val) classname += `${val} `;
   });
-  console.log(classname);
   return classname.trim();
 };
+
+export const toKebabCase = (string, delimiters) => {
+  return string
+    .split(delimiters)
+    .map(word => word.toLowerCase())
+    .join('-');
+}

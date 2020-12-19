@@ -21,4 +21,10 @@
     text-decoration: underline;
     cursor: pointer;
   }
+  &__error {
+    margin-bottom: 20px;
+    color: red;
+    font-family: $font-2;
+    text-align: center;
+  }
 }
