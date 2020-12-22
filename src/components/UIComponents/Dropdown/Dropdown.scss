@@ -1,0 +1,23 @@
+.dropdown {
+  &__container {
+    min-width: 100px;
+    min-height: 80px;
+    background: white;
+    position: absolute;
+    right: 14px;
+    top: 73px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    &--point {
+      width: 50px;
+      height: 50px;
+      background: white;
+      transform: rotate(45deg);
+      border-radius: 0px 25px 0px 0px;
+      position: absolute;
+      right: 0px;
+      z-index: -1;
+    }
+  }
+}

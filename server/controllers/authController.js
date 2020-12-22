@@ -49,6 +49,7 @@ const loginUser = (req, res) => {
         if(doesMatch) {
           req.session.user = {
             email: matchedUser[0].email,
+            _id: matchedUser[0]._id
           }
           res
             .status(200)
@@ -84,8 +85,15 @@ const getUser = (req, res) => {
 }
 
 const logoutUser = (req, res) => {
-  req.session.destroy();
-  res.sendStatus(200);
+  try {
+    req.session.destroy();
+    res.sendStatus(200);
+  } catch(e) {
+    res.status(500).json({
+      message: 'something went wrong',
+      error: e,
+    });
+  }
 }
 
 module.exports = {

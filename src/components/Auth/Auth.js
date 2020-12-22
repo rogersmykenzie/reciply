@@ -23,10 +23,18 @@ export class Auth extends React.Component {
     const error = (function() {
       switch(message) {
         case 'passwords not equal': 
-          return 'Passwords are not equal. Try again'
+          return 'Passwords are not equal. Try again.'
         case 'password criteria not met': 
-          return 'Password must include a special character, lowercase character, uppercase character, and be 8 characters or longer'
-        default: 'Something went wrong. Please try again later'
+          return 'Password must include a special character, lowercase character, uppercase character, and be 8 characters or longer.'
+        case 'email exists':
+          return 'There is already an account attached to that email. Please use another.'
+        case 'username or password incorrect':
+          return 'The username or password is incorrect. Please try again.'
+        case 'no email':
+          return 'Please enter an email.'
+        case 'no password':
+          return 'Please enter a password.'
+        default: 'Something went wrong. Please try again later.'
       }
     })();
 
@@ -77,29 +85,33 @@ export class Auth extends React.Component {
           password
         })
         .then(({ data: { email, _id } }) => {
-          window.sessionStorage.setItem('user_data', JSON.stringify({ email, _id }));
+          window.sessionStorage.setItem('userData', JSON.stringify({ email, _id }));
           this.props.history.push('/overview')
         })
-        .catch(this.handleError)
+        .catch((e) => this.handleError(e.response.data))
     }
   }
 
   handleLogin = (e) => {
     e.preventDefault();
     const { password, email} = this.state;
+    if (!email) return this.handleError({ message: 'no email' });
+    if (!password) return this.handleError({ message: 'no password' });
     axios
       .post('/api/login', { password, email })
       .then(({ data: { email, _id } }) => {
         window.sessionStorage.setItem('userData', JSON.stringify({ email, _id }));
         this.props.history.push('/overview')
       })
-      .catch(this.handleError);
+      .catch((e) => this.handleError(e.response.data));
   }
   
 
   setView = (view) => {
     this.setState({ view, email: '', password: '', 'confirm-password': ''});
   }
+
+  handleSubmit = e => e.preventDefault();
 
   render() {
     const { error, view } = this.state;
@@ -108,7 +120,7 @@ export class Auth extends React.Component {
       return (
         <>
           <Nav />
-          <form className="auth--container">
+          <form className="auth--container" onSubmit={this.handleSubmit}>
             <Input
               placeholder="Email"
               className="auth__email--input"
@@ -165,6 +177,7 @@ export class Auth extends React.Component {
             <Button
               button="Login"
               buttonClass="auth__email--input"
+              onClick={this.handleLogin}
             />
             <p>
               Don't have an account?{' '}
