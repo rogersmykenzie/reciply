@@ -1,0 +1,15 @@
+@import 'src/variables';
+.create_list {
+  &__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+  &__title {
+    font-size: 35px;
+    font-family: $font-2;
+    margin-bottom: 150px;
+  }
+}

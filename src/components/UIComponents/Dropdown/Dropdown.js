@@ -9,11 +9,12 @@ export class Dropdown extends React.Component {
   }
 
   render() {
-    const { containerClass, pointClass } = this.props;
+    const { containerClass, pointClass, hidePointClass } = this.props;
     return (
       <>
         <div className={classnames('dropdown__container', containerClass)}>
           <div className={classnames('dropdown__container--point', pointClass)} />
+          <div className={classnames('dropdown__container--hidePoint', hidePointClass)} />
           {this.props.children}
         </div>
       </>

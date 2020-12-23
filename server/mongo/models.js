@@ -8,6 +8,13 @@ const User = defineModel('User', defineSchema({
   password: String,
 }));
 
+const List = defineModel('List', defineSchema({
+  user_id: String,
+  title: String,
+  date: Date
+}))
+
 module.exports = {
   User,
+  List
 }

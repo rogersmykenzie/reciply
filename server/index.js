@@ -9,6 +9,10 @@ const {
   logoutUser
 } = require('./controllers/authController');
 const {
+  getLists,
+  createList
+} = require('./controllers/listController');
+const {
   handleOpen
 } = require('./mongo/utils');
 
@@ -38,5 +42,8 @@ app.post('/api/register', registerUser);
 app.post('/api/login', loginUser);
 app.get('/api/user', getUser);
 app.get('/api/logout', logoutUser);
+
+app.get('/api/lists/:_id', getLists)
+app.post('/api/lists', createList)
 
 app.listen(5050, () => console.log('Listening on Port 5050'));

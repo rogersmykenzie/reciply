@@ -4,6 +4,64 @@
   width: 300px;
   height: 40px;
   font-size: 16px;
-  padding: 0px 16px;
+  padding: 5px 16px 0px 16px;
   font-family: $font-1;
+  border-radius: 3px;
+  border: 1px solid black;
+  &--container {
+    position: relative;
+  }
+  &--label, &--slide, &--return {
+    position: absolute;
+    font-size: 20px;
+    font-family: $font-2;
+    height: 20px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 16px;
+    right: 0;
+  }
+  &--slide {
+    animation: .25s slideLabel linear forwards;
+  }
+  &--return {
+    transform: translateY(-10px);
+    font-size: 12px;
+    animation: .25s returnLabel linear forwards;
+  }
+  &--border {
+    border: 1px solid $color-1;
+    outline: none;
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+    padding: 5px 16px 0px 16px;
+    font-family: $font-1;
+    border-radius: 3px;
+    &-return {
+      border-radius: 3px;
+      border: 1px solid black;
+      width: 300px;
+      height: 40px;
+      font-size: 16px;
+      padding: 5px 16px 0px 16px;
+      font-family: $font-1;
+    }
+  }
+}
+
+@keyframes slideLabel {
+  100% {
+    transform: translateY(-10px);
+    font-size: 12px;
+    color: $color-1;
+  }
+}
+
+@keyframes returnLabel {
+  100% {
+    transform: translateY(0px);
+    font-size: 20px;
+  }
 }

@@ -7,12 +7,28 @@ export class Input extends React.Component {
   constructor() {
     super();
     this.key = uuid();
+    this.state = {
+      animationClass: 'input__field--label',
+      borderClass: 'input__field',
+      hasValue: false,
+    }
   }
 
   handleChange = (e) => {
     const { onChange } = this.props;
+    this.setState({ hasValue: !!e.target.value.length });
     if (onChange) onChange(e);
   };
+
+  handleFocus = () => this.setState({
+    animationClass: 'input__field--slide',
+    borderClass: 'input__field--border'
+  });
+
+  handleBlur = () => !this.state.hasValue && this.setState({
+    animationClass: 'input__field--return',
+    borderClass: 'input__field--border-return'
+  });
 
   render() {
     const {
@@ -23,12 +39,14 @@ export class Input extends React.Component {
       type = '',
     } = this.props;
 
+    const { animationClass, borderClass } = this.state;
+
     return (
       <div className="input__field--container">
         {label && (
           <label
-            for={`input__field--${this.key}`}
-            className={classnames('input__field--label', labelClass)}
+            htmlFor={`input__field--${this.key}`}
+            className={classnames(animationClass, labelClass)}
           >
             {label}
           </label>
@@ -36,9 +54,11 @@ export class Input extends React.Component {
         <input
           id={`input__field--${this.key}`}
           placeholder={placeholder}
-          className={classnames('input__field', className)}
-          type={type ? type : 'text'}
+          className={classnames(borderClass, className)}
+          type={type || 'text'}
           onChange={this.handleChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
         />
       </div>
     );

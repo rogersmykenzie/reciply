@@ -1,7 +1,8 @@
 import React from 'react';
-import Nav from '../Nav/Nav';
 import groceries from 'assets/images/groceries.jpg';
 import { Link } from 'react-router-dom';
+import withAuthRedirect from '../HOCs/withAuthRedirect';
+import Nav from '../Nav/Nav';
 import '../../reset.scss';
 import './LandingPage.scss';
 
@@ -33,4 +34,4 @@ export class LandingPage extends React.Component {
   }
 }
 
-export default LandingPage;
+export default withAuthRedirect(LandingPage, '/', '/overview');

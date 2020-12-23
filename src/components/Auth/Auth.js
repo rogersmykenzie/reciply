@@ -1,10 +1,13 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import withAuthRedirect from '../HOCs/withAuthRedirect';
 import Nav from '../Nav/Nav';
 import Input from '../UIComponents/Input/Input';
 import Button from '../UIComponents/Button/Button';
 import { ASCII_MAP } from '../../constants';
 import { toKebabCase } from '../utilities/globalUtils';
+import { loginUser } from '../../redux/reducers/AuthReducer';
 import './Auth.scss';
 
 export class Auth extends React.Component {
@@ -95,15 +98,18 @@ export class Auth extends React.Component {
   handleLogin = (e) => {
     e.preventDefault();
     const { password, email} = this.state;
+    const { loginUser, history } = this.props;
     if (!email) return this.handleError({ message: 'no email' });
     if (!password) return this.handleError({ message: 'no password' });
-    axios
-      .post('/api/login', { password, email })
-      .then(({ data: { email, _id } }) => {
+    loginUser(
+      password,
+      email,
+      (_id) => {
         window.sessionStorage.setItem('userData', JSON.stringify({ email, _id }));
-        this.props.history.push('/overview')
-      })
-      .catch((e) => this.handleError(e.response.data));
+        history.push('/overview');
+      },
+      (e) => this.handleError(e.response.data)
+    );
   }
   
 
@@ -196,4 +202,17 @@ export class Auth extends React.Component {
   }
 }
 
-export default Auth;
+const mapDispatchToProps = {
+  loginUser,
+}
+
+export default connect(
+  undefined,
+  mapDispatchToProps
+)(
+  withAuthRedirect(
+    Auth,
+    '/auth',
+    '/overview'
+  )
+);

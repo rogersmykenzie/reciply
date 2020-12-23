@@ -1,23 +1,37 @@
+@mixin point-styles {
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  background: whitesmoke;
+  transform: rotate(45deg);
+  border-radius: 0px 25px 0px 0px;
+  position: absolute;
+  right: 0px;
+}
+
 .dropdown {
   &__container {
     min-width: 100px;
     min-height: 80px;
-    background: white;
+    background: whitesmoke;
     position: absolute;
     right: 14px;
     top: 73px;
     border-radius: 3px;
     display: flex;
     flex-direction: column;
+    border: 1px solid black;
     &--point {
-      width: 50px;
-      height: 50px;
-      background: white;
-      transform: rotate(45deg);
-      border-radius: 0px 25px 0px 0px;
-      position: absolute;
-      right: 0px;
+      @include point-styles;
       z-index: -1;
+    }
+    &--hidePoint {
+      @include point-styles;
+      right: 1.5px;
+      top: .8px;
+      width: 49px;
+      height: 49px;
+      border: none;
     }
   }
 }

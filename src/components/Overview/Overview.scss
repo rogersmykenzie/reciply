@@ -1,0 +1,18 @@
+@import 'src/variables';
+.overview {
+  &__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 5px;
+  }
+  &__list {
+    &--title {
+      letter-spacing: .65px;
+      font-size: 20px;
+      font-family: $font-1;
+      margin-bottom: 10px;
+    }
+  }
+}
